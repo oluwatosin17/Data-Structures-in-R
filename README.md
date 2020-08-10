@@ -233,3 +233,46 @@ Combine Multiple Lists
 Create a List of Lists (Nested List)
 
 `new_list_3 <- list(new_list, new_list_1)`
+
+## Dataframes in R
+
+**Pick columns to keep or remove from your data:**
+
+Keeping data
+`filtered_data <- select(recent_grads, Rank, Major)`
+Removing data
+`filtered_data <- select(recent_grads, -College_jobs)`
+
+**Filter rows based on conditions:**
+
+`top_100_majors <- filter(recent_grads, Rank < 100)`
+
+**Chain together tidyverse functions into a pipeline:**
+`library(dplyr)
+low_total_ranked_majors <- recent_grads %>%
+  select(., Rank, Major, Total) %>%
+  filter(., ranked_majors, Total < 2000)`
+
+
+**Create new columns:**
+`new_recent_grads <- recent_grads %>%
+  mutate(
+    prop_male = Men / Total
+  )`
+
+
+**Sort data by a particular or multiple columns:**
+`new_recent_grads <- recent_grads %>%
+  mutate(
+    prop_male = Men / Total
+  ) %>% 
+  arrange(-prop_male)`
+
+
+**Use summarize() to calculate some summary values based on entire columns:**
+`summary_table <- recent_grads %>% 
+  summarize(
+    avg_unemp = mean(Unemployment_rate),
+    min_unemp = min(Unemployment_rate),
+    max_unemp = max(Unemployment_rate)
+  )`
